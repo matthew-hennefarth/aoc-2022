@@ -139,6 +139,10 @@ fn get_importance(c: char) -> usize {
 
 fn main() {
 
+    println!("==================");
+    println!("||    DAY 03    ||");
+    println!("==================");
+
     let input = get_input();
 
     let mut total = 0;
@@ -155,10 +159,7 @@ fn main() {
         total += importance;
     }
 
-    println!("===================");
-    println!("  Part 1 Solution  ");
-    println!("===================");
-    println!("Sum of priorities: {}", total);
+    println!("Sum of priorities for items: {}", total);
 
     total = 0;
 
@@ -168,10 +169,7 @@ fn main() {
         total += importance;
     }
 
+    println!("Sum of priorities for badges: {}", total);
     println!("");
-    println!("===================");
-    println!("  Part 2 Solution  ");
-    println!("===================");
-    println!("Sum of priorities: {}", total);
 
 }

@@ -101,6 +101,10 @@ fn determine_decision(p1: &Decision, result: &Result) -> Decision {
 
 fn main() {
 
+    println!("==================");
+    println!("||    DAY 02    ||");
+    println!("==================");
+
     let input = get_input();
 
     let mut total_points = 0;
@@ -118,9 +122,6 @@ fn main() {
 
     }
 
-    println!("===================");
-    println!("  Part 1 Solution  ");
-    println!("===================");
     println!("Total points: {}", total_points);
 
 
@@ -137,10 +138,6 @@ fn main() {
 
     }
 
+    println!("Total points with new strategy: {}", total_points);
     println!("");
-    println!("===================");
-    println!("  Part 2 Solution  ");
-    println!("===================");
-    println!("Total points: {}", total_points);
-
 }

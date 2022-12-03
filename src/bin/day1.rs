@@ -24,6 +24,10 @@ fn get_input() -> Vec<String> {
 
 fn main() {
 
+    println!("==================");
+    println!("||    DAY 01    ||");
+    println!("==================");
+
     let input = get_input();
     
     let mut calories = 0;
@@ -40,9 +44,6 @@ fn main() {
             calories += (*line).parse::<isize>().unwrap();
         }
     }
-    println!("===================");
-    println!("  Part 1 Solution  ");
-    println!("===================");
     println!("Max calories is: {}", max_calories);
 
     let mut top_calories = vec![0, 0, 0];
@@ -62,10 +63,7 @@ fn main() {
     }
 
     let sum: isize = top_calories.iter().sum();
-    println!("");
-    println!("===================");
-    println!("  Part 2 Solution  ");
-    println!("===================");
     println!("Calories of top 3 elves is: {}", sum);
+    println!("");
 
 }
