@@ -101,9 +101,9 @@ fn determine_decision(p1: &Decision, result: &Result) -> Decision {
 
 fn main() {
 
-    println!("==================");
-    println!("||    DAY 02    ||");
-    println!("==================");
+    println!("\x1b[91m==================\x1b[0m");
+    println!("\x1b[92m\x1b[1m||    DAY \x1b[91m02\x1b[92m    ||\x1b[0m");
+    println!("\x1b[91m==================\x1b[0m");
 
     let input = get_input();
 
@@ -122,7 +122,7 @@ fn main() {
 
     }
 
-    println!("Total points: {}", total_points);
+    println!("Total points:                   \x1b[93m{total_points:>4}\x1b[0m");
 
 
     total_points = 0;
@@ -138,6 +138,6 @@ fn main() {
 
     }
 
-    println!("Total points with new strategy: {}", total_points);
+    println!("Total points with new strategy: \x1b[93m{total_points:>4}\x1b[0m");
     println!("");
 }

@@ -24,9 +24,9 @@ fn get_input() -> Vec<String> {
 
 fn main() {
 
-    println!("==================");
-    println!("||    DAY 01    ||");
-    println!("==================");
+    println!("\x1b[91m==================\x1b[0m");
+    println!("\x1b[92m\x1b[1m||    DAY \x1b[91m01\x1b[92m    ||\x1b[0m");
+    println!("\x1b[91m==================\x1b[0m");
 
     let input = get_input();
     
@@ -41,12 +41,12 @@ fn main() {
             calories = 0;
         }
         else {
-            calories += (*line).parse::<isize>().unwrap();
+            calories += (*line).parse::<usize>().unwrap();
         }
     }
-    println!("Max calories is: {}", max_calories);
+    println!("Max calories is:             \x1b[93m{max_calories:>8}\x1b[0m");
 
-    let mut top_calories = vec![0, 0, 0];
+    let mut top_calories: [usize; 3] = [0; 3];
     calories = 0;
 
     for line in input {
@@ -58,12 +58,12 @@ fn main() {
             calories = 0;
         }
         else {
-            calories += line.parse::<isize>().unwrap();
+            calories += line.parse::<usize>().unwrap();
         }
     }
 
-    let sum: isize = top_calories.iter().sum();
-    println!("Calories of top 3 elves is: {}", sum);
+    let sum: usize = top_calories.iter().sum();
+    println!("Calories of top 3 elves is:  \x1b[93m{sum:>8}\x1b[0m");
     println!("");
 
 }
