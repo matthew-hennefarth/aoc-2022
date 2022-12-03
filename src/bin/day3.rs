@@ -38,10 +38,6 @@ fn get_matching_char_3(sacks: &[String]) -> char {
         let c1 = sack1.chars().nth(index1).unwrap();
         let c2 = sack2.chars().nth(index2).unwrap();
         let c3 = sack3.chars().nth(index3).unwrap();
-
-        //let c1 = sack1.as_bytes()[index1];
-        //let c2 = sack2.as_bytes()[index2];
-        //let c3 = sack3.as_bytes()[index3];
        
         if c1 == c2 && c1 == c3 {
             return c1;
@@ -124,8 +120,6 @@ fn main() {
         let len = line.len();
         let sack1 = &line[..len/2];
         let sack2 = &line[len/2..];
-        
-        assert!(sack1.len() == sack2.len());
 
         let matching = get_matching_char(sack1, sack2);
         let importance = get_importance(matching);
