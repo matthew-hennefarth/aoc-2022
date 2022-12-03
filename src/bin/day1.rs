@@ -1,34 +1,7 @@
-use std::io::{self, BufRead};
-
-fn get_input() -> Vec<String> {
-    let stdin = io::stdin();
-    let mut handle = stdin.lock();
-    let mut buffer = String::new();
-    let mut eof = false;
-    let mut lines = Vec::new();
-
-    while !eof {
-        match handle.read_line(&mut buffer) {
-            Ok(0) => eof = true,
-            Ok(_) => {
-                buffer.pop();
-                lines.push(buffer);
-                buffer = String::new();
-            },
-            Err(_error) => panic!("Something went wrong reading in!")
-        }
-    }
-
-    lines
-}
-
 fn main() {
 
-    println!("\x1b[91m==================\x1b[0m");
-    println!("\x1b[92m\x1b[1m||    DAY \x1b[91m01\x1b[92m    ||\x1b[0m");
-    println!("\x1b[91m==================\x1b[0m");
-
-    let input = get_input();
+    aoc_2022::print_header(1);
+    let input = aoc_2022::get_input();
     
     let mut calories = 0;
     let mut max_calories = 0;

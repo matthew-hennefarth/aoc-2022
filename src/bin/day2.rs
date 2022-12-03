@@ -1,25 +1,19 @@
+#[derive(Debug, PartialEq)]
+enum Result {
+    Win = 6,
+    Tie = 3,
+    Loss = 0
+}
 
-fn get_input() -> Vec<String> {
-    use std::io::{self, BufRead};
-    let stdin = io::stdin();
-    let mut handle = stdin.lock();
-    let mut buffer = String::new();
-    let mut eof = false;
-    let mut lines = Vec::new();
-
-    while !eof {
-        match handle.read_line(&mut buffer) {
-            Ok(0) => eof = true,
-            Ok(_) => {
-                buffer.pop();
-                lines.push(buffer);
-                buffer = String::new();
-            },
-            Err(_error) => panic!("Something went wrong reading in!")
+impl Result {
+    fn from_char(c: char) -> Self {
+        match c {
+            'X' => Result::Loss,
+            'Y' => Result::Tie,
+            'Z' => Result::Win,
+            _ => unreachable!()
         }
     }
-
-    lines
 }
 
 #[derive(Debug, PartialEq, PartialOrd, Clone, Copy)]
@@ -30,6 +24,15 @@ enum Decision {
 }
 
 impl Decision {
+    fn from_char(c: char) -> Self {
+        match c {
+            'A' | 'X' => Decision::Rock,
+            'B' | 'Y' => Decision::Paper,
+            'C' | 'Z' => Decision::Scissors,
+            _ => unreachable!()
+        }
+    }
+
     fn next(&self) -> Self {
         match *self {
             Decision::Rock => Decision::Paper,
@@ -38,74 +41,31 @@ impl Decision {
         }
     }
 
-    fn prev(&self) -> Self {
-        match *self {
-            Decision::Rock => Decision::Scissors,
-            Decision::Paper => Decision::Rock,
-            Decision::Scissors => Decision::Paper
+    fn play(&self, other_player: &Decision) -> Result {
+        if self == other_player {
+            return Result::Tie;
         }
+        else if self.next() == *other_player {
+            return Result::Loss;
+        }
+        Result::Win
     }
-}
 
-fn get_decision(choice: char) -> Decision {
-    match choice {
-        'A' | 'X' => Decision::Rock,
-        'B' | 'Y' => Decision::Paper,
-        'C' | 'Z' => Decision::Scissors,
-        _ => unreachable!()
+    fn needed_decision(&self, result: &Result) -> Self {
+        if result == &Result::Tie {
+            return *self;
+        }
+        else if result == &Result::Win {
+            return self.next();
+        }
+        self.next()
     }
-}
-
-#[derive(Debug, PartialEq)]
-enum Result {
-    Win = 6,
-    Tie = 3,
-    Loss = 0
-}
-
-fn get_result(choice: char) -> Result {
-    match choice {
-        'X' => Result::Loss,
-        'Y' => Result::Tie,
-        'Z' => Result::Win,
-        _ => unreachable!()
-    }
-}
-
-fn determine_result(p1: &Decision, p2: &Decision) -> Result {
-    if p1 == p2 {
-        return Result::Tie;
-    }
-    
-    if *p1 == Decision::Rock && *p2 == Decision::Scissors {
-        return Result::Loss;
-    }
-    if *p1 == Decision::Scissors && *p2 == Decision::Rock {
-        return Result::Win;
-    }
-    if p1 < p2 {
-        return Result::Win;
-    }
-    Result::Loss
-}
-
-fn determine_decision(p1: &Decision, result: &Result) -> Decision {
-    if result == &Result::Tie {
-        return *p1
-    }
-    else if result == &Result::Win {
-        return p1.next();
-    }
-    p1.prev()
 }
 
 fn main() {
 
-    println!("\x1b[91m==================\x1b[0m");
-    println!("\x1b[92m\x1b[1m||    DAY \x1b[91m02\x1b[92m    ||\x1b[0m");
-    println!("\x1b[91m==================\x1b[0m");
-
-    let input = get_input();
+    aoc_2022::print_header(2);
+    let input = aoc_2022::get_input();
 
     let mut total_points = 0;
 
@@ -113,10 +73,10 @@ fn main() {
         let p1 = (*line).as_bytes()[0] as char;
         let p2 = (*line).as_bytes()[2] as char;
     
-        let p1 = get_decision(p1);
-        let p2 = get_decision(p2);
+        let p1 = Decision::from_char(p1);
+        let p2 = Decision::from_char(p2);
 
-        let result = determine_result(&p1, &p2);
+        let result = p2.play(&p1);
         
         total_points += (result as usize) + (p2 as usize);
 
@@ -130,10 +90,10 @@ fn main() {
         let p1 = line.as_bytes()[0] as char;
         let result = line.as_bytes()[2] as char;
 
-        let p1 = get_decision(p1);
-        let result = get_result(result);
+        let p1 = Decision::from_char(p1);
+        let result = Result::from_char(result);
     
-        let p2 = determine_decision(&p1, &result);
+        let p2 = p1.needed_decision(&result);
         total_points += (result as usize) + (p2 as usize);
 
     }
