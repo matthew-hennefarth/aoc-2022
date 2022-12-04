@@ -38,7 +38,7 @@ fn ranges_overlaps(range1: [usize; 2], range2: [usize; 2]) -> bool {
 
 fn main() {
 
-    aoc_2022::print_header(1);
+    aoc_2022::print_header(4);
     let input = aoc_2022::get_input();
     
     let mut fully_contains = 0;
